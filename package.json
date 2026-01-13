@@ -1,6 +1,6 @@
 {
   "name": "@alcorexchange/privy-vue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Privy wallet integration for Vue.js with EVM and Antelope/EOS signing support",
   "type": "module",
   "main": "./dist/index.cjs",

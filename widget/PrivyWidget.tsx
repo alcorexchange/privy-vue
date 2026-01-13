@@ -235,36 +235,6 @@ export function PrivyWidget() {
     authCallbacksRef.current.forEach(cb => cb(authenticated))
   }, [authenticated, wallets])
 
-  // Render connect button or wallet info
-  if (!ready) {
-    return <div className="privy-loading">Loading...</div>
-  }
-
-  if (!authenticated) {
-    return (
-      <button className="privy-connect-btn" onClick={() => login()}>
-        Connect
-      </button>
-    )
-  }
-
-  const activeWallet = getActiveWallet()
-  if (!activeWallet) {
-    return (
-      <button className="privy-connect-btn" onClick={() => login()}>
-        Connect Wallet
-      </button>
-    )
-  }
-
-  return (
-    <div className="privy-wallet-info">
-      <span className="privy-address">
-        {activeWallet.address.slice(0, 6)}...{activeWallet.address.slice(-4)}
-      </span>
-      <button className="privy-logout-btn" onClick={() => logout()}>
-        Disconnect
-      </button>
-    </div>
-  )
+  // No UI - only expose API, Privy modal is handled internally
+  return null
 }
