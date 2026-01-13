@@ -1,0 +1,49 @@
+{
+  "name": "@alcorexchange/privy-vue",
+  "version": "0.1.0",
+  "description": "Privy wallet integration for Vue.js with EVM and Antelope/EOS signing support",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./widget": "./dist/privy-island.iife.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "build:widget": "cd widget && yarn install && yarn build && cp dist/privy-island.iife.js ../dist/",
+    "build:all": "yarn build && yarn build:widget",
+    "prepublishOnly": "yarn build:all"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "devDependencies": {
+    "unbuild": "^2.0.0",
+    "vue": "^3.5.0",
+    "typescript": "^5.7.0"
+  },
+  "keywords": [
+    "privy",
+    "vue",
+    "wallet",
+    "ethereum",
+    "eos",
+    "antelope",
+    "web3"
+  ],
+  "author": "Alcor Exchange",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alcorexchange/privy-vue.git"
+  }
+}

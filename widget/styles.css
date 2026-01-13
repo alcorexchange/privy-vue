@@ -1,0 +1,96 @@
+/**
+ * Privy Island Custom Styles
+ * Applies Alcor Perps design system to Privy UI
+ */
+
+/* ==================== PRIVY CSS VARIABLES OVERRIDES ==================== */
+
+body {
+  /* Backgrounds - dark theme aligned with our UI */
+  --privy-color-background: #161818;        /* var(--color-bg-primary) */
+  --privy-color-background-2: #1a1a1a;      /* var(--color-bg-secondary) */
+
+  /* Foreground (text) */
+  --privy-color-foreground: #f6fefd;        /* var(--color-text-primary) */
+  --privy-color-foreground-2: #d2dad7;      /* var(--color-text-secondary) */
+  --privy-color-foreground-3: #949e9c;      /* var(--color-text-muted) */
+
+  /* Accent (primary mint green) */
+  --privy-color-accent: #39d998;            /* var(--color-primary) */
+  --privy-color-accent-light: #4de6a5;      /* var(--color-primary-hover) */
+
+  /* Error */
+  --privy-color-error: #ef4444;             /* var(--color-error) */
+
+  /* Border radius */
+  --privy-border-radius-md: 6px;            /* var(--radius-md) */
+  --privy-border-radius-mdlg: 8px;          /* var(--radius-lg) */
+
+  /* Font family */
+  --privy-font-family: 'Inter', -apple-system, sans-serif;
+}
+
+/* ==================== WIDGET STYLES ==================== */
+
+.privy-loading {
+  color: #949e9c;
+  font-size: 12px;
+  padding: 8px 12px;
+}
+
+.privy-connect-btn {
+  background: #39d998;
+  color: #0f0f0f;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.privy-connect-btn:hover {
+  background: #4de6a5;
+  transform: translateY(-1px);
+}
+
+.privy-connect-btn:active {
+  background: #2ec184;
+  transform: translateY(0);
+}
+
+.privy-wallet-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+}
+
+.privy-address {
+  color: #f6fefd;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: ui-monospace, 'SF Mono', monospace;
+}
+
+.privy-logout-btn {
+  background: transparent;
+  color: #949e9c;
+  border: none;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.privy-logout-btn:hover {
+  color: #ed7088;
+}
