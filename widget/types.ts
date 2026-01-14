@@ -60,6 +60,10 @@ export interface PrivyWidgetAPI {
 export interface PrivyWidgetConfig {
   landingHeader?: string
   loginMessage?: string
+  /** Disable external wallets (Metamask, Phantom, etc). Only social login + embedded wallet */
+  externalWallets?: boolean
+  /** Only auto-login with the last used method. Prevents injected wallets from hijacking social login */
+  lastLoginOnly?: boolean
 }
 
 declare global {

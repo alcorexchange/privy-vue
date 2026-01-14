@@ -22,6 +22,11 @@ function mount(elementId = 'privy-root') {
 
   const config = window.__PRIVY_CONFIG__ || {}
 
+  // Build wallet list based on config
+  const walletList = config.externalWallets === false
+    ? []  // No external wallets, only social login
+    : ['detected_wallets', 'metamask', 'wallet_connect', 'coinbase_wallet']
+
   root = createRoot(container)
   root.render(
     <StrictMode>
@@ -34,7 +39,7 @@ function mount(elementId = 'privy-root') {
             loginMessage: config.loginMessage || 'Connect your wallet to continue',
             showWalletLoginFirst: false,
             walletChainType: 'ethereum-only',
-            walletList: ['detected_wallets', 'metamask', 'wallet_connect', 'coinbase_wallet']
+            walletList
           },
           embeddedWallets: {
             ethereum: {
@@ -43,7 +48,7 @@ function mount(elementId = 'privy-root') {
           }
         }}
       >
-        <PrivyWidget />
+        <PrivyWidget config={config} />
       </PrivyProvider>
     </StrictMode>
   )

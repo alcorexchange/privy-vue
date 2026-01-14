@@ -19,6 +19,14 @@ Add to your HTML or create a Nuxt plugin:
 export default defineNuxtPlugin(() => {
   window.__PRIVY_APP_ID__ = 'your-privy-app-id'
 
+  // Optional: configure appearance and behavior
+  window.__PRIVY_CONFIG__ = {
+    landingHeader: 'Connect Wallet',
+    loginMessage: 'Connect your wallet to continue',
+    externalWallets: true,   // Set false to disable external wallets (Metamask, etc)
+    lastLoginOnly: true      // Only auto-login with last used method
+  }
+
   const script = document.createElement('script')
   script.src = '/privy-island.iife.js' // Copy from node_modules/@alcorexchange/privy-vue/dist/
   document.head.appendChild(script)
@@ -55,6 +63,15 @@ const {
   </div>
 </template>
 ```
+
+## Configuration
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `landingHeader` | string | `'Connect Wallet'` | Modal header text |
+| `loginMessage` | string | `'Connect your wallet to continue'` | Modal login message |
+| `externalWallets` | boolean | `true` | Enable external wallets (Metamask, Phantom, etc). Set `false` for social login only |
+| `lastLoginOnly` | boolean | `false` | Only auto-login with the last used method. Prevents injected wallets from hijacking social login sessions |
 
 ## EVM Signing
 

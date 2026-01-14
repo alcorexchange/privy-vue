@@ -1,6 +1,8 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useEffect, useCallback, useRef } from 'react'
 import { usePrivy, useWallets } from '@privy-io/react-auth'
-import type { WalletInfo, PrivyWidgetAPI, EvmSigners, SolanaSigners } from './types'
+import type { WalletInfo, PrivyWidgetAPI, EvmSigners, SolanaSigners, PrivyWidgetConfig } from './types'
+
+const LAST_LOGIN_KEY = 'privy-last-login-type'
 
 // Global promise for ready state (resolves once)
 let readyResolve: ((api: PrivyWidgetAPI) => void) | null = null
@@ -20,13 +22,53 @@ function getOrCreateReadyPromise(): Promise<PrivyWidgetAPI> {
 // Initialize promise immediately
 getOrCreateReadyPromise()
 
-export function PrivyWidget() {
+interface PrivyWidgetProps {
+  config?: PrivyWidgetConfig
+}
+
+export function PrivyWidget({ config }: PrivyWidgetProps) {
   const { ready, authenticated, login, logout, exportWallet } = usePrivy()
   const { wallets } = useWallets()
   const authCallbacksRef = useRef<Set<(auth: boolean) => void>>(new Set())
   const onReadyCallbacksRef = useRef<Set<(api: PrivyWidgetAPI) => void>>(new Set())
   const walletsRef = useRef(wallets)
+  const hasCheckedLastLogin = useRef(false)
   walletsRef.current = wallets  // Always keep ref updated
+
+  // lastLoginOnly: Check if current login matches last saved method
+  useEffect(() => {
+    if (!config?.lastLoginOnly) return
+    if (!ready || !authenticated || wallets.length === 0) return
+    if (hasCheckedLastLogin.current) return
+
+    hasCheckedLastLogin.current = true
+
+    const lastType = localStorage.getItem(LAST_LOGIN_KEY)
+    const currentType = wallets[0]?.walletClientType
+
+    // If we have a saved type and current doesn't match, logout
+    if (lastType && currentType && lastType !== currentType) {
+      console.log(`[Privy] Last login was ${lastType}, but got ${currentType}. Logging out.`)
+      logout()
+      return
+    }
+
+    // Save current type for future
+    if (currentType) {
+      localStorage.setItem(LAST_LOGIN_KEY, currentType)
+    }
+  }, [ready, authenticated, wallets, config?.lastLoginOnly, logout])
+
+  // Save login type on successful auth (when not using lastLoginOnly check)
+  useEffect(() => {
+    if (config?.lastLoginOnly) return // Already handled above
+    if (!authenticated || wallets.length === 0) return
+
+    const currentType = wallets[0]?.walletClientType
+    if (currentType) {
+      localStorage.setItem(LAST_LOGIN_KEY, currentType)
+    }
+  }, [authenticated, wallets, config?.lastLoginOnly])
 
   // Get active wallet (prefer embedded Privy wallet for secp256k1 signing)
   // Uses ref to always get current wallets, avoiding stale closure issues
