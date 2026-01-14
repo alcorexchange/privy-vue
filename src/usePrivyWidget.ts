@@ -44,6 +44,11 @@ export function usePrivyWidget(_options?: UsePrivyWidgetOptions) {
     if (typeof window === 'undefined') return
     if (initialized && globalApi.value) return
 
+    // Set config if provided
+    if (_options?.config) {
+      window.__PRIVY_CONFIG__ = { ...window.__PRIVY_CONFIG__, ..._options.config }
+    }
+
     // Wait for PrivyWidgetReady promise to exist (script must load first)
     let attempts = 0
     while (!window.PrivyWidgetReady && attempts < 100) {

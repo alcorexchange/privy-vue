@@ -20,6 +20,8 @@ function mount(elementId = 'privy-root') {
     return
   }
 
+  const config = window.__PRIVY_CONFIG__ || {}
+
   root = createRoot(container)
   root.render(
     <StrictMode>
@@ -27,16 +29,16 @@ function mount(elementId = 'privy-root') {
         appId={appId}
         config={{
           appearance: {
-            theme: '#161818', // Our dark background
-            landingHeader: 'Connect to Alcor Perps',
-            loginMessage: 'Connect your wallet to start trading',
+            theme: '#161818',
+            landingHeader: config.landingHeader || 'Connect Wallet',
+            loginMessage: config.loginMessage || 'Connect your wallet to continue',
             showWalletLoginFirst: false,
             walletChainType: 'ethereum-only',
             walletList: ['detected_wallets', 'metamask', 'wallet_connect', 'coinbase_wallet']
           },
           embeddedWallets: {
             ethereum: {
-              createOnLogin: 'all-users'  // Create embedded wallet for all users (including social login)
+              createOnLogin: 'all-users'
             }
           }
         }}

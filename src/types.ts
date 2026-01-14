@@ -57,9 +57,18 @@ export interface PrivyWidgetAPI {
   solana: SolanaSigners
 }
 
+export interface PrivyWidgetConfig {
+  /** Modal header text */
+  landingHeader?: string
+  /** Modal login message */
+  loginMessage?: string
+}
+
 export interface UsePrivyWidgetOptions {
   /** Privy App ID */
   appId: string
+  /** Widget appearance config */
+  config?: PrivyWidgetConfig
   /** URL to the IIFE bundle (default: auto-resolved from package) */
   scriptUrl?: string
   /** Container element ID for React mount (default: 'privy-widget-root') */
@@ -73,5 +82,6 @@ declare global {
     PrivyWidget?: PrivyWidgetAPI
     PrivyWidgetReady?: Promise<PrivyWidgetAPI>
     __PRIVY_APP_ID__?: string
+    __PRIVY_CONFIG__?: PrivyWidgetConfig
   }
 }

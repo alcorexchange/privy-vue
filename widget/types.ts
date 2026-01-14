@@ -57,11 +57,17 @@ export interface PrivyWidgetAPI {
   solana: SolanaSigners
 }
 
+export interface PrivyWidgetConfig {
+  landingHeader?: string
+  loginMessage?: string
+}
+
 declare global {
   interface Window {
     PrivyWidget?: PrivyWidgetAPI
     /** Promise that resolves when Privy widget is ready */
     PrivyWidgetReady?: Promise<PrivyWidgetAPI>
     __PRIVY_APP_ID__?: string
+    __PRIVY_CONFIG__?: PrivyWidgetConfig
   }
 }
